@@ -1,0 +1,10 @@
+# Executáveis
+main
+*.out
+
+# Pastas de Build do CLion
+cmake-build-debug/
+cmake-build-release/
+
+# Configurações da IDE
+.idea/
