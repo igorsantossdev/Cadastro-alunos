@@ -1,42 +1,55 @@
 #include <iostream> //entrada e saída
 #include <limits>   //limpeza de buffer
 #include <string>   //strings
-#include <vector>   //vetor
-
     void clear() {
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
     }
 
-int main() {
-        //variaveis
-        int ID;
+    struct Aluno {
         std::string nome;
+        int ID{};
+        Aluno* next{};
+    };
 
-        //vetor de alunos
-        using Turma = std::vector<std::pair<int, std::string>>;
-        Turma grupo1;
 
-        //adicionando alunos
-        for (int i = 0; i < 3; i++) {
-            std::cout << "Digite o ID e o primeiro nome do aluno (separados apenas por espaço)" << std::endl;
-            std::cin >> ID >> nome;
-            clear();
-            grupo1.emplace_back(ID, nome);
+    int main() {
+        //ALUNO 1
+        auto aluno1 = new Aluno();
+        std::cout << "escreva o nome do primeiro aluno: ";
+        std::cin >> aluno1 -> nome;
+        std::cout << "escreva o ID do primeiro aluno: ";
+        std::cin >> aluno1 -> ID;
+        aluno1 -> next = nullptr;
+
+        //ALUNO 2
+        auto* aluno2 = new Aluno();
+        std::cout << "escreva o nome do segundo aluno: ";
+        std::cin >> aluno2 -> nome;
+        std::cout << "escreva o ID do segundo aluno: ";
+        std::cin >> aluno2 -> ID;
+        aluno1 -> next = aluno2;
+
+
+        //ALUNO 3
+        auto* aluno3 = new Aluno();
+        std::cout << "escreva o nome do terceiro aluno: ";
+        std::cin >> aluno3 -> nome;
+        std::cout << "escreva o ID do terceiro aluno: ";
+        std::cin >> aluno3 -> ID;
+        aluno2 -> next = aluno3;
+        aluno3 -> next = nullptr;
+
+        Aluno* contador = aluno1;
+
+        while (contador!=nullptr) {
+            std::cout << contador -> nome <<" - " << contador -> ID << "\n" << std::endl;
+            contador = contador -> next;
         }
 
-        //imprimindo alunos
-        for (int i = 0; i < 3; i++) {
-            std::cout << grupo1[i].first << " " << grupo1[i].second << ";\n" << std::endl;
+        while (aluno1!=nullptr) {
+            auto proximo = aluno1 -> next;
+            delete aluno1;
+            aluno1 = proximo;
         }
-
         return 0;
-    }
-
-
-/*OBJETIVOS
-     * 1. aprender pair, vector e percorrer lista
-     * 2. criar uma lista com ID e nome
-     * 3. colocar 3 pessoas
-     * 4. percorrer a lista e imprimir os ID e nomes durante a lista
-     * 5. o usuário adicionar as pessoas com ID e procurar por ID
-     */
+        }
