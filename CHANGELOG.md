@@ -1,6 +1,16 @@
 # Changelog
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
 
+### [v0.3.0] - 14-04-2026
+#### Added
+- **Função `deletar()`:** remoção de aluno por ID com dois casos tratados separadamente — remoção do primeiro nó (requer atualização do ponteiro `lista`) e remoção de nó intermediário/final (requer reconexão do ponteiro `next` do nó anterior). Memória liberada com `delete` após remoção
+- **Opção 4 no menu:** entrada dedicada para deletar aluno
+
+### [v0.2.0] - 14-04-2026
+#### Added
+- **Função `editar()`:** busca de aluno por ID com atualização opcional de nome e ID. Preserva o valor original caso o usuário pressione Enter sem digitar
+- **Opção 3 no menu:** entrada dedicada para editar aluno
+
 ### [v0.1.0] - 14-04-2026
 #### Added
 - **Menu interativo:** loop `do-while` no `main` com opções numeradas (1. Cadastrar, 2. Listar, 0. Sair), permitindo múltiplas operações sem reiniciar o programa
