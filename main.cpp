@@ -79,6 +79,42 @@ void editar(Aluno* lista) {
     std::cout << "Aluno com ID " << idBusca << " nao encontrado.\n";
 }
 
+Aluno* deletar(Aluno* lista) {
+    if (lista == nullptr) {
+        std::cout << "Nenhum aluno cadastrado.\n";
+        return nullptr;
+    }
+
+    int idBusca{};
+    std::cout << "Digite o ID do aluno que deseja deletar: ";
+    std::cin >> idBusca;
+    clear();
+
+    // Caso especial: o nó a deletar é o primeiro da lista
+    if (lista->ID == idBusca) {
+        Aluno* novaLista = lista->next;
+        delete lista;
+        std::cout << "Aluno removido com sucesso.\n";
+        return novaLista;
+    }
+
+    // Caso geral: percorre a lista procurando o nó anterior ao alvo
+    Aluno* anterior = lista;
+    while (anterior->next != nullptr) {
+        if (anterior->next->ID == idBusca) {
+            Aluno* alvo = anterior->next;
+            anterior->next = alvo->next; // reconecta a lista
+            delete alvo;
+            std::cout << "Aluno removido com sucesso.\n";
+            return lista;
+        }
+        anterior = anterior->next;
+    }
+
+    std::cout << "Aluno com ID " << idBusca << " nao encontrado.\n";
+    return lista;
+}
+
 int main() {
     Aluno* lista = nullptr;
     int opcao{};
@@ -88,6 +124,7 @@ int main() {
         std::cout << "1. Cadastrar aluno\n";
         std::cout << "2. Listar alunos\n";
         std::cout << "3. Editar aluno\n";
+        std::cout << "4. Deletar aluno\n";
         std::cout << "0. Sair\n";
         std::cout << "Opcao: ";
         std::cin >> opcao;
@@ -102,6 +139,9 @@ int main() {
                 break;
             case 3:
                 editar(lista);
+                break;
+            case 4:
+                lista = deletar(lista);
                 break;
             case 0:
                 std::cout << "Encerrando...\n";
